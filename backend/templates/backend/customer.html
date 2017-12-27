@@ -2,7 +2,7 @@
 {% if customer_list %}
     <ul>
     {% for customer in customer_list %}
-    <li><a href="{% url 'xigua:customer_detail' customer.cid %}"> {{ customer.cname }} </a></li>
+    <li><a href="{% url 'backend:customer_detail' customer.cid %}"> {{ customer.cname }} </a></li>
     {% endfor %}
     </ul>
 {% else %}
