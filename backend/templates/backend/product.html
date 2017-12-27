@@ -2,7 +2,7 @@
 {% if product %}
     <ul>
     {% for p in product %}
-    <li><a href="{% url 'backend:product_detail' product.pid %}"> {{ product.pname }} </a></li>
+    <li><a href="{% url 'backend:product_detail' p.pid %}"> {{ p.pname }} </a></li>
     {% endfor %}
     </ul>
 {% else %}

@@ -50,3 +50,9 @@ def product(request):
         'product': product,
     })
 
+def productdetail(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    template_name = 'backend/product_detail.html'
+    return render(request, template_name, {
+        'product': product,
+    })
