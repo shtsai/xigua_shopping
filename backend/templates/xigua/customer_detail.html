@@ -1,0 +1,13 @@
+<p>{{ customer.id }}</p>
+<p>{{ customer.cname }}</p>
+<p>{{ customer.caddr }}</p>
+<p>{{ customer.cphone }}</p>
+<p>{{ customer.cwechat }}</p>
+<p>{{ message }}</p>
+
+{% for o in orders %}
+    {{ o.oid }}
+    {{ o.cname }}
+    {{ o.ototal }}
+    <br>
+{% endfor %}

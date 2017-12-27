@@ -1,0 +1,11 @@
+<p>Hello World</p>
+{% if customer_list %}
+    <ul>
+    {% for customer in customer_list %}
+    <li><a href="{% url 'xigua:customer_detail' customer.cid %}"> {{ customer.cname }} </a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No customers are available.</p>
+{% endif %}
+
