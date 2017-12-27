@@ -1,0 +1,11 @@
+<p>Hello World</p>
+{% if product %}
+    <ul>
+    {% for p in product %}
+    <li><a href="{% url 'backend:product_detail' product.pid %}"> {{ product.pname }} </a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No products are available.</p>
+{% endif %}
+

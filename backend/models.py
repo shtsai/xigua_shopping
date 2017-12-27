@@ -26,3 +26,13 @@ class Order(models.Model):
 
     def __str__(self):
         return self.oid
+
+class Product(models.Model):
+    pid = models.AutoField(primary_key=True)
+    pname = models.CharField('Product Name', max_length=40)
+    ptype = models.CharField('Product Type', max_length=20, null=True)
+    pcost = models.DecimalField('Product Cost', max_digits=10, decimal_places=2, null=True)
+    pprice = models.DecimalField('Product Price', max_digits=10, decimal_places=2, null=True)
+
+    def __str__(self):
+        return self.pname

@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.views import generic
 from django.db import connection
-from .models import Customer, Order
+from .models import Customer, Order, Product
 
 # Create your views here.
 
@@ -41,3 +41,12 @@ def get_customer_orders(customer_id):
 def dictfetchall(cursor):
     columns = [col[0] for col in cursor.description]
     return [dict(zip(columns, row)) for row in cursor.fetchall()]
+
+
+def product(request):
+    product = Product.objects.all()
+    template_name = 'backend/product.html'
+    return render(request, template_name, {
+        'product': product,
+    })
+
