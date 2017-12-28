@@ -36,3 +36,14 @@ class Product(models.Model):
 
     def __str__(self):
         return self.pname
+
+class Ordercontains(models.Model):
+    oid = models.ForeignKey('Order', on_delete=models.CASCADE)
+    pid = models.ForeignKey('Product', on_delete=models.CASCADE)
+    oquantity = models.IntegerField('Order Quantity')
+    oprice = models.DecimalField('Order Price', max_digits=10, decimal_places=2)
+
+    class Meta:
+        unique_together = (('oid', 'pid'))
+    def __str__(self):
+        return str(self.oid) + " " + str(self.pid)

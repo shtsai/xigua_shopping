@@ -1,0 +1,16 @@
+<p>Order Detail</p>
+<p>{{ customer.cname }}</p>
+<p>{{ order.oid }}</p>
+<p>{{ order.odate }}</p>
+<p>{{ order.ototal }}</p>
+
+{% if items %}
+    <ul>
+    {% for item in items %}
+    <li>{{ item.pname }} {{ item.oquantity }} {{ item.oprice }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No items are available.</p>
+{% endif %}
+

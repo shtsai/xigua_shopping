@@ -5,9 +5,12 @@
 <p>{{ customer.cwechat }}</p>
 <p>{{ message }}</p>
 
+<ul>
 {% for o in orders %}
-    {{ o.oid }}
+    <li><a href="{% url 'backend:order' o.oid %}"> {{ o.oid }} </a>
     {{ o.cname }}
     {{ o.ototal }}
+    </li>
     <br>
 {% endfor %}
+</ul>
