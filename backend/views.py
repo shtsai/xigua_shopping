@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.views import generic
 from django.db import connection
-from .models import Customer, Order, Product
+from .models import Customer, Order, Product, Inventory
 
 # Create your views here.
 
@@ -77,3 +77,19 @@ def get_order_items(order_id):
                         ''', [order_id])
         res = dictfetchall(cursor)
         return res
+
+
+def inventory(request):
+    inventory = Inventory.objects.all()
+    template_name = 'backend/inventory.html'
+    return render(request, template_name, {
+        'inventory': inventory,
+    })
+
+def inventorydetail(request, inventory_id):
+    inventory = get_object_or_404(Inventory, pk=inventory_id)
+    template_name = 'backend/inventory_detail.html'
+#    items = get_inventory_items(inventory_id)
+    return render(request, template_name, {
+        'inventory': inventory,
+    })

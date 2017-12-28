@@ -10,6 +10,7 @@ class Customer(models.Model):
     cphone = models.CharField('Phone', max_length=15, null=True)
     cwechat = models.CharField('Wechat', max_length=20, null=True)
     cdate = models.DateTimeField('Date Created')
+    cnote = models.CharField('Note', max_length=100, null=True)
 
     def __str__(self):
         return self.cname
@@ -23,6 +24,7 @@ class Order(models.Model):
     ototal = models.DecimalField('Total amount', max_digits=10, decimal_places=2, null=True)
     opaymentmethod = models.CharField('Payment method', max_length=20, null=True)
     ostatus = models.CharField('Status', max_length=20)
+    onote = models.CharField('Note', max_length=100, null=True)
 
     def __str__(self):
         return self.oid
@@ -33,6 +35,7 @@ class Product(models.Model):
     ptype = models.CharField('Product Type', max_length=20, null=True)
     pcost = models.DecimalField('Product Cost', max_digits=10, decimal_places=2, null=True)
     pprice = models.DecimalField('Product Price', max_digits=10, decimal_places=2, null=True)
+    pnote = models.CharField('Note', max_length=100, null=True)
 
     def __str__(self):
         return self.pname
@@ -47,3 +50,15 @@ class Ordercontains(models.Model):
         unique_together = (('oid', 'pid'))
     def __str__(self):
         return str(self.oid) + " " + str(self.pid)
+
+
+class Inventory(models.Model):
+    iid = models.AutoField(primary_key=True)
+    idate = models.DateTimeField('Date Received')
+    icost = models.DecimalField('Total Value', max_digits=10, decimal_places=2)
+    ishipping = models.DecimalField('Shipping Cost', max_digits=10, decimal_places=2)
+    itype = models.CharField('Shipping Method', max_length=20, null=True)
+    inote = models.CharField('Note', max_length=100, null=True)
+
+    def __str__(self):
+        return str(self.iid)

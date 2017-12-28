@@ -1,0 +1,17 @@
+<p>Inventory List</p>
+{% if inventory %}
+    <ul>
+    {% for i in inventory %}
+    <li>
+	<a href="{% url 'backend:inventory_detail' i.iid %}"> {{ i.iid }} </a>
+	{{ i.idate }}
+	{{ i.itype }}
+	{{ i.ishipping }}
+	{{ i.icost }}
+    </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No inventoriess are available.</p>
+{% endif %}
+

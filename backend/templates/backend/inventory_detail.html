@@ -1,0 +1,17 @@
+<p>Inventory Detail</p>
+<p>{{ inventory.iid }}</p>
+<p>{{ inventory.idate }}</p>
+<p>{{ inventory.icost }}</p>
+<p>{{ inventory.ishipping }}</p>
+<p>{{ inventory.itype }}</p>
+
+{% if items %}
+    <ul>
+    {% for item in items %}
+    <li>{{ item.pname }} {{ item.oquantity }} {{ item.oprice }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No items are available.</p>
+{% endif %}
+
