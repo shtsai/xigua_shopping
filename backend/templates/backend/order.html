@@ -1,16 +1,20 @@
-<p>Order Detail</p>
-<p>{{ customer.cname }}</p>
-<p>{{ order.oid }}</p>
-<p>{{ order.odate }}</p>
-<p>{{ order.ototal }}</p>
+{% extends 'backend/includes/header.html' %}
 
-{% if items %}
-    <ul>
-    {% for item in items %}
-    <li>{{ item.pname }} {{ item.oquantity }} {{ item.oprice }}</li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No items are available.</p>
-{% endif %}
+{% block content %}
+    <h1>Order Detail</h1>
+	<p>{{ customer.cname }}</p>
+	<p>{{ order.oid }}</p>
+	<p>{{ order.odate }}</p>
+	<p>{{ order.ototal }}</p>
 
+	{% if items %}
+	    <ul>
+	    {% for item in items %}
+	    <li>{{ item.pname }} {{ item.oquantity }} {{ item.oprice }}</li>
+	    {% endfor %}
+	    </ul>
+	{% else %}
+	    <p>No items are available.</p>
+	{% endif %}
+
+{% endblock %}

@@ -1,11 +1,18 @@
-<p>Hello World</p>
-{% if customer_list %}
-    <ul>
-    {% for customer in customer_list %}
-    <li><a href="{% url 'backend:customer_detail' customer.cid %}"> {{ customer.cname }} </a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No customers are available.</p>
-{% endif %}
+{% extends 'backend/includes/header.html' %}
+
+{% block content %}
+
+    <h1> Customer </h1>
+	{% if customer_list %}
+	    <ul>
+	    {% for customer in customer_list %}
+	    <li><a href="{% url 'backend:customer_detail' customer.cid %}"> {{ customer.cname }} </a></li>
+	    {% endfor %}
+	    </ul>
+	{% else %}
+	    <p>No customers are available.</p>
+	{% endif %}
+
+{% endblock %}
+
 

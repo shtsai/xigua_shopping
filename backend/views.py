@@ -5,7 +5,7 @@ from django.db import connection
 from .models import Customer, Order, Product, Inventory
 
 def index(request):
-    return HttpResponse("Hello world")
+    return render(request, 'backend/index.html')
 
 class CustomerView(generic.ListView):
     template_name = 'backend/customer.html'

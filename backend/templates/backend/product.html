@@ -1,11 +1,15 @@
-<p>Hello World</p>
-{% if product %}
-    <ul>
-    {% for p in product %}
-    <li><a href="{% url 'backend:product_detail' p.pid %}"> {{ p.pname }} </a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No products are available.</p>
-{% endif %}
+{% extends 'backend/includes/header.html' %}
 
+{% block content %}
+    <h1>Product List</h1>
+	{% if product %}
+	    <ul>
+	    {% for p in product %}
+	    <li><a href="{% url 'backend:product_detail' p.pid %}"> {{ p.pname }} </a></li>
+	    {% endfor %}
+	    </ul>
+	{% else %}
+	    <p>No products are available.</p>
+	{% endif %}
+
+{% endblock %}

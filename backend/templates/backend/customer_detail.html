@@ -1,16 +1,23 @@
-<p>{{ customer.id }}</p>
-<p>{{ customer.cname }}</p>
-<p>{{ customer.caddr }}</p>
-<p>{{ customer.cphone }}</p>
-<p>{{ customer.cwechat }}</p>
-<p>{{ message }}</p>
+{% extends 'backend/includes/header.html' %}
 
-<ul>
-{% for o in orders %}
-    <li><a href="{% url 'backend:order' o.oid %}"> {{ o.oid }} </a>
-    {{ o.cname }}
-    {{ o.ototal }}
-    </li>
-    <br>
-{% endfor %}
-</ul>
+{% block content %}
+    <h1> {{ customer.cname }} </h1>
+
+	<p>{{ customer.id }}</p>
+	<p>{{ customer.caddr }}</p>
+	<p>{{ customer.cphone }}</p>
+	<p>{{ customer.cwechat }}</p>
+	<p>{{ message }}</p>
+
+	<ul>
+	{% for o in orders %}
+	    <li><a href="{% url 'backend:order' o.oid %}"> {{ o.oid }} </a>
+	    {{ o.cname }}
+	    {{ o.ototal }}
+	    </li>
+	    <br>
+	{% endfor %}
+	</ul>
+
+{% endblock %}
+

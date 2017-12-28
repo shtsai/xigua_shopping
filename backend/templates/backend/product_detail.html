@@ -1,5 +1,12 @@
-<p>{{ product.pid }}</p>
-<p>{{ product.pname }}</p>
-<p>{{ product.ptype }}</p>
-<p>{{ product.pcost }}</p>
-<p>{{ product.pprice }}</p>
+{% extends 'backend/includes/header.html' %}
+
+{% block content %}
+    <h1>Product Detail</h1>
+	<p>{{ product.pid }}</p>
+	<p>{{ product.pname }}</p>
+	<p>{{ product.ptype }}</p>
+	<p>{{ product.pcost }}</p>
+	<p>{{ product.pprice }}</p>
+
+
+{% endblock %}
