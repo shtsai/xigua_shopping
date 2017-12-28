@@ -4,8 +4,6 @@ from django.views import generic
 from django.db import connection
 from .models import Customer, Order, Product, Inventory
 
-# Create your views here.
-
 def index(request):
     return HttpResponse("Hello world")
 
@@ -89,7 +87,19 @@ def inventory(request):
 def inventorydetail(request, inventory_id):
     inventory = get_object_or_404(Inventory, pk=inventory_id)
     template_name = 'backend/inventory_detail.html'
-#    items = get_inventory_items(inventory_id)
+    items = get_inventory_items(inventory_id)
     return render(request, template_name, {
         'inventory': inventory,
+        'items': items,
     })
+    
+def get_inventory_items(inventory_id):
+    with connection.cursor() as cursor:
+        cursor.execute('''
+                        SELECT *
+                        FROM backend_inventory AS I JOIN backend_inventorycontains AS IC ON I.iid = IC.iid_id JOIN backend_product AS P ON P.pid = IC.pid_id
+                        WHERE I.iid = %s
+                        ''', [inventory_id])
+        res = dictfetchall(cursor)
+        return res
+

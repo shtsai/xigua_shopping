@@ -62,3 +62,14 @@ class Inventory(models.Model):
 
     def __str__(self):
         return str(self.iid)
+    
+class Inventorycontains(models.Model):
+    iid = models.ForeignKey('Inventory', on_delete=models.CASCADE)
+    pid = models.ForeignKey('Product', on_delete=models.CASCADE)
+    iquantity = models.IntegerField('Inventory Quantity')
+    iprice = models.DecimalField('Inventory Price', max_digits=10, decimal_places=2)
+
+    class Meta:
+        unique_together = (('iid', 'pid'))
+    def __str__(self):
+        return str(self.iid) + " " + str(self.pid)
