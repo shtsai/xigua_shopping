@@ -1,23 +1,38 @@
 {% extends 'backend/includes/header.html' %}
 
 {% block content %}
-    <h1>Inventory</h1>
-
+    <div class="container">
+        <h1>Inventory</h1>
+    </div>
+    
+    <div class="container">
     {% if inventory %}
-        <ul>
-        {% for i in inventory %}
-        <li>
-        <a href="{% url 'backend:inventory_detail' i.iid %}"> {{ i.iid }} </a>
-        {{ i.idate }}
-        {{ i.itype }}
-        {{ i.ishipping }}
-        {{ i.icost }}
-        </li>
-        {% endfor %}
-        </ul>
+        <div class="row">
+            <div class="col">
+                <table class="table table-striped table-hover">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th style="width:10%;">iid</th>
+                        <th style="width:70%;">Date</th>
+                        <th style="width:20%;">Type</th>
+                    </tr>
+                    </thead>
+                    {% for i in inventory %}
+                    <tr onclick="window.location='{% url 'backend:inventory_detail' i.iid %}';">
+                        <td><a href="{% url 'backend:inventory_detail' i.iid %}">{{ i.iid }}</a></td>
+                        <td>{{ i.idate|date:"m/d/Y" }}</td>
+                        <td>{{ i.itype }}</td>
+                    </tr>   
+                    {% endfor %}
+                </table>
+
+            </div>
+        </div>
+
     {% else %}
         <p>No inventoriess are available.</p>
     {% endif %}
+    </div>
 
 
 {% endblock %}

@@ -19,7 +19,7 @@
 					</tr>
 					</thead>
 					{% for p in product %}
-					<tr>
+					<tr onclick="window.location='{% url 'backend:product_detail' p.pid %}';">
 						<td>{{ p.pid }}</a></td>
 						<td><a href="{% url 'backend:product_detail' p.pid %}"> {{ p.pname }} </a></td>
 						<td>{{ p.ptype }}</a></td>

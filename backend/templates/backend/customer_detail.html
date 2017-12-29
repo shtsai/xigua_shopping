@@ -57,7 +57,7 @@
 					</tr>
 					</thead>
 					{% for o in orders %}
-					<tr>
+					<tr onclick="window.location='{% url 'backend:order' o.oid %}';">
 						<td><a href="{% url 'backend:order' o.oid %}">{{ o.oid }}</a></td>
 						<td>{{ o.odate|date:"m/d/Y H:i" }}</td>
 						<td>{{ o.oshipdate|date:"m/d/Y H:i" }}</td>

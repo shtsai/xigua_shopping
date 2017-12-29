@@ -17,7 +17,7 @@
 					</tr>
 					</thead>
 					{% for customer in customer_list %}
-					<tr>
+					<tr onclick="window.location='{% url 'backend:customer_detail' customer.cid %}';">
 						<td> {{ customer.cid }} </a></td>
 						<td><a href="{% url 'backend:customer_detail' customer.cid %}"> {{ customer.cname }} </a></td>
 					</tr>	
