@@ -1,4 +1,9 @@
 #navbar a {
     font-weight: bold;
+    font-size: 120%;
 }
 
+#xigua a {
+    color: black;
+    font-weight: bolder;
+}

@@ -1,6 +1,32 @@
 {% extends 'backend/includes/header.html' %}
 
+
+
 {% block content %}
-    <h1> Hello From Index!</h1>
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'backend/cover.css' %}">
+
+    <div class="site-wrapper">
+
+      <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+          <main role="main" class="inner cover">
+            <h1 class="cover-heading">Xigua Shopping</h1>
+            <p class="lead">|</p>
+            <p class="lead">
+              <a href="#" class="btn btn-lg btn-secondary">Learn more</a>
+            </p>
+          </main>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
 
 {% endblock %}
