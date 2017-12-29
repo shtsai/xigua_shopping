@@ -1,12 +1,43 @@
 {% extends 'backend/includes/header.html' %}
 
 {% block content %}
-    <h1>Product Detail</h1>
-	<p>{{ product.pid }}</p>
-	<p>{{ product.pname }}</p>
-	<p>{{ product.ptype }}</p>
-	<p>{{ product.pcost }}</p>
-	<p>{{ product.pprice }}</p>
+
+	<div class="container">
+	  <h1>Product Detail</h1>
+	  <div class="row">
+	  	<div class="col-6">
+			<table class="table">
+			  <tbody>
+			    <tr>
+			      <td style="width:40%"">PID</td>
+			      <td style="width:60%"">{{ product.pid }}</td>
+			    </tr>
+			    <tr>
+			      <td>Product Name</td>
+			      <td>{{ product.pname }}</td>
+			    </tr>
+			    <tr>
+			      <td>Type</td>
+			      <td>{{ product.ptype }}</td>
+			    </tr>
+			    <tr>
+			      <td>Cost</td>
+			      <td>{{ product.pcost }}</td>
+			    </tr>
+			    <tr>
+			      <td>Price</td>
+			      <td>{{ product.pprice }}</td>
+			    </tr>			    			    
+			    <tr>
+			      <td>Note</td>
+			      <td>{{ product.pnote }}</td>
+			    </tr>			    			    
+			  </tbody>
+			</table>
+		</div>
+		<div class="col-6"></div>
+	  </div>
+	</div>
 
 
 {% endblock %}
