@@ -24,6 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEBUG = True
 
 ALLOWED_HOSTS = []
+ALLOWED_HOSTS += ['192.168.0.%s' %(i) for i in range(256)]
 
 
 # Application definition
