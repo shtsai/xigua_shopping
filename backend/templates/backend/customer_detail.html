@@ -1,23 +1,84 @@
 {% extends 'backend/includes/header.html' %}
 
 {% block content %}
-    <h1> {{ customer.cname }} </h1>
 
-	<p>{{ customer.id }}</p>
-	<p>{{ customer.caddr }}</p>
-	<p>{{ customer.cphone }}</p>
-	<p>{{ customer.cwechat }}</p>
-	<p>{{ message }}</p>
 
-	<ul>
-	{% for o in orders %}
-	    <li><a href="{% url 'backend:order' o.oid %}"> {{ o.oid }} </a>
-	    {{ o.cname }}
-	    {{ o.ototal }}
-	    </li>
-	    <br>
-	{% endfor %}
-	</ul>
+
+	<div class="container">
+	  <h1> {{ customer.cname }} </h1>
+	  <div class="row">
+	  	<div class="col-4">
+			<table class="table table-sm">
+			  <tbody>
+			    <tr>
+			      <td style="width:40%"">CID</td>
+			      <td style="width:60%"">{{ customer.cid }}</td>
+			    </tr>
+			    <tr>
+			      <td>Address</td>
+			      <td>{{ customer.caddr }}</td>
+			    </tr>
+			    <tr>
+			      <td>Phone</td>
+			      <td>{{ customer.cphone }}</td>
+			    </tr>
+			    <tr>
+			      <td>Wechat</td>
+			      <td>{{ customer.cwechat }}</td>
+			    </tr>
+			    <tr>
+			      <td>Join Date</td>
+			      <td>{{ customer.cdate|date:"m/d/Y" }}</td>
+			    </tr>			    			    
+			    <tr>
+			      <td>Note</td>
+			      <td>{{ customer.note }}</td>
+			    </tr>			    			    
+			  </tbody>
+			</table>
+		</div>
+		<div class="col-8"></div>
+	  </div>
+	</div>
+    
+
+	<div class="container">
+		<div class="row justify-content-start">
+			<div class="col">
+				<table class="table table-striped table-hover">
+					<thead class="thead-dark">
+					<tr>
+						<th style="width:20%;">OrderID</th>
+						<th style="width:20%;">Order Date</th>
+						<th style="width:20%;">Ship Date</th>
+						<th style="width:5%;">Paid</th>
+						<th style="width:10%;">Total</th>
+						<th style="width:5%;">Shipping Fee</th>
+						<th style="width:10%;">Payment Method</th>
+						<th style="width:10%;">Status</th>
+					</tr>
+					</thead>
+					{% for o in orders %}
+					<tr>
+						<td><a href="{% url 'backend:order' o.oid %}">{{ o.oid }}</a></td>
+						<td>{{ o.odate|date:"m/d/Y H:i" }}</td>
+						<td>{{ o.oshipdate|date:"m/d/Y H:i" }}</td>
+						{% if o.opaid == 0 %}
+							<td>No</td>
+						{% else %}
+							<td>Yes</td>
+						{% endif %}
+						<td>{{ o.ototal }}</td>
+						<td>{{ o.oshipping }}</td>
+						<td>{{ o.opaymentmethod }}</td>
+						<td>{{ o.ostatus }}</td>
+					</tr>	
+					{% endfor %}
+				</table>
+
+			</div>
+		</div>
+	</div>
 
 {% endblock %}
 

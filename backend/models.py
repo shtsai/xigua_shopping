@@ -22,6 +22,7 @@ class Order(models.Model):
     oshipdate = models.DateTimeField('Date Shipped', null=True)
     opaid = models.BooleanField('Is this order paid?')
     ototal = models.DecimalField('Total amount', max_digits=10, decimal_places=2, null=True)
+    oshipping = models.DecimalField('Shipping Cost', max_digits=10, decimal_places=2, null=True)
     opaymentmethod = models.CharField('Payment method', max_length=20, null=True)
     ostatus = models.CharField('Status', max_length=20)
     onote = models.CharField('Note', max_length=100, null=True)
