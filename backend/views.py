@@ -55,9 +55,65 @@ def productdetail(request, product_id):
         'product': product,
     })
     
-def order(request, order_id):
-    order = get_object_or_404(Order, pk=order_id)
+def order(request):
+    order = get_all_orders()
+    pendingorder = get_pending_orders()
+    shippedorder = get_shipped_orders()
+    completedorder = get_completed_orders()
     template_name = 'backend/order.html'
+    return render(request, template_name, {
+        'order': order,    
+        'pendingorder': pendingorder,
+        'shippedorder': shippedorder,
+        'completedorder': completedorder,
+    }) 
+
+def get_all_orders():
+    with connection.cursor() as cursor:
+        cursor.execute('''
+                        SELECT *
+                        FROM backend_order AS O JOIN backend_customer AS C ON O.cid_id = C.cid
+                        ORDER BY O.odate DESC 
+                        ''')
+        res = dictfetchall(cursor)
+        return res
+
+def get_pending_orders():
+    with connection.cursor() as cursor:
+        cursor.execute('''
+                        SELECT *
+                        FROM backend_order AS O JOIN backend_customer AS C ON O.cid_id = C.cid
+                        WHERE ostatus="Pending"
+                        ORDER BY O.odate DESC 
+                        ''')
+        res = dictfetchall(cursor)
+        return res
+
+def get_shipped_orders():
+    with connection.cursor() as cursor:
+        cursor.execute('''
+                        SELECT *
+                        FROM backend_order AS O JOIN backend_customer AS C ON O.cid_id = C.cid
+                        WHERE ostatus="Shipped"
+                        ORDER BY O.odate DESC 
+                        ''')
+        res = dictfetchall(cursor)
+        return res
+    
+def get_completed_orders():
+    with connection.cursor() as cursor:
+        cursor.execute('''
+                        SELECT *
+                        FROM backend_order AS O JOIN backend_customer AS C ON O.cid_id = C.cid
+                        WHERE ostatus="Completed"
+                        ORDER BY O.odate DESC 
+                        ''')
+        res = dictfetchall(cursor)
+        return res
+
+def orderdetail(request, order_id):
+    order = get_object_or_404(Order, pk=order_id)
+    template_name = 'backend/order_detail.html'
     items = get_order_items(order_id)
     customer = Customer.objects.filter(order__oid=order_id)[0]
     return render(request, template_name, {
