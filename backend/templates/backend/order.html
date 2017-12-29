@@ -1,86 +1,168 @@
 {% extends 'backend/includes/header.html' %}
 
 {% block content %}
-
 	<div class="container">
-	  <h1>Order Detail</h1>
-	  <div class="row">
-	  	<div class="col-8">
-			<table class="table">
-			  <tbody>
-			    <tr>
-			      <td style="width:40%"">Customer</td>
-			      <td style="width:60%"">{{ customer.cname }}</td>
-			    </tr>
-			    <tr>
-			      <td>Order ID</td>
-			      <td>{{ order.oid }}</td>
-			    </tr>
-			    <tr>
-			      <td>Order Date</td>
-			      <td>{{ order.odate|date:"m/d/Y H:i" }}</td>
-			    </tr>
-			    <tr>
-			      <td>Ship Date</td>
-			      <td>{{ order.oshipdate|date:"m/d/Y H:i" }}</td>
-			    </tr>				    
-			    <tr>
-			      <td>Paid</td>
-		      		{% if o.opaid == 0 %}
-						<td>No</td>
-					{% else %}
-						<td>Yes</td>
-					{% endif %}
-			    </tr>    
-			    <tr>
-			      <td>Total</td>
-			      <td>{{ order.ototal }}</td>
-			    </tr>			    			    
-			    <tr>
-			      <td>Shipping Fee</td>
-			      <td>{{ order.oshipping }}</td>
-			    </tr>	
-			    <tr>
-			      <td>Payment Method</td>
-			      <td>{{ order.opaymentmethod }}</td>
-			    </tr>	
-			    <tr>
-			      <td>Status</td>
-			      <td>{{ order.ostatus }}</td>
-			    </tr>	
-			  </tbody>
-			</table>
-		</div>
-		<div class="col-4"></div>
-	  </div>
+		<h1>Orders</h1>
 	</div>
 
 	<div class="container">
-	{% if items %}
-		<div class="row justify-content-start">
-			<div class="col">
-				<table class="table table-striped table-hover">
-					<thead class="thead-dark">
-					<tr>
-						<th style="width:50%;">Product Name</th>
-						<th style="width:25%;">Quantity</th>
-						<th style="width:25%;">Price</th>
-					</tr>
-					</thead>
-					{% for item in items %}
-					<tr onclick="window.location='{% url 'backend:product_detail' item.pid %}';">
-						<td><a href="{% url 'backend:product_detail' item.pid %}" >{{ item.pname }}</a></td>
-						<td>{{ item.oquantity }}</td>
-						<td>{{ item.oprice }}</td>
-					</tr>	
-					{% endfor %}
-				</table>
 
+		<ul class="nav nav-tabs" id="myTab" role="tablist">
+		  <li class="nav-item">
+		    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#pending" role="tab" aria-controls="home" aria-selected="true">Pending</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#shipped" role="tab" aria-controls="profile" aria-selected="false">Shipped</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#completed" role="tab" aria-controls="contact" aria-selected="false">Completed</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#all" role="tab" aria-controls="contact" aria-selected="false">All</a>
+		  </li>
+		</ul>
+		<div class="tab-content" id="myTabContent">
+		  <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="home-tab">
+			{% if pendingorder %}
+				<div class="row">
+					<div class="col">
+						<table class="table table-striped table-hover">
+							<thead class="thead-dark">
+							<tr>
+								<th style="width:15%;">Customer</th>
+								<th style="width:25%;">OID</th>
+								<th style="width:30%;">Order Date</th>
+								<th style="width:10%;">Paid</th>
+								<th style="width:20%;">Status</th>
+							</tr>
+							</thead>
+							{% for po in pendingorder %}
+							<tr onclick="window.location='{% url 'backend:order_detail' po.oid %}';">
+								<td> {{ po.cname }} </td>
+								<td> {{ po.oid }} </td>
+								<td> {{ po.odate }} </td>
+								{% if o.opaid == 0 %}
+									<td>No</td>
+								{% else %}
+									<td>Yes</td>
+								{% endif %}
+								<td> {{ po.ostatus }} </td>
+							</tr>	
+							{% endfor %}
+						</table>
+					</div>
+				</div>
+			{% else %}
+			    <p>No orders are available.</p>
+			{% endif %}
+		  </div>
+		  <div class="tab-pane fade" id="shipped" role="tabpanel" aria-labelledby="profile-tab">
+			{% if shippedorder %}
+				<div class="row">
+					<div class="col">
+						<table class="table table-striped table-hover">
+							<thead class="thead-dark">
+							<tr>
+								<th style="width:15%;">Customer</th>
+								<th style="width:25%;">OID</th>
+								<th style="width:30%;">Order Date</th>
+								<th style="width:10%;">Paid</th>
+								<th style="width:20%;">Status</th>
+							</tr>
+							</thead>
+							{% for so in shippedorder %}
+							<tr onclick="window.location='{% url 'backend:order_detail' so.oid %}';">
+								<td> {{ so.cname }} </td>
+								<td> {{ so.oid }} </td>
+								<td> {{ so.odate }} </td>
+								{% if o.opaid == 0 %}
+									<td>No</td>
+								{% else %}
+									<td>Yes</td>
+								{% endif %}
+								<td> {{ so.ostatus }} </td>
+							</tr>	
+							{% endfor %}
+						</table>
+					</div>
+				</div>
+			{% else %}
+			    <p>No orders are available.</p>
+			{% endif %}
+		  </div>
+		  <div class="tab-pane fade" id="completed" role="tabpanel" aria-labelledby="contact-tab">
+			{% if completedorder %}
+				<div class="row">
+					<div class="col">
+						<table class="table table-striped table-hover">
+							<thead class="thead-dark">
+							<tr>
+								<th style="width:15%;">Customer</th>
+								<th style="width:25%;">OID</th>
+								<th style="width:30%;">Order Date</th>
+								<th style="width:10%;">Paid</th>
+								<th style="width:20%;">Status</th>
+							</tr>
+							</thead>
+							{% for co in completedorder %}
+							<tr onclick="window.location='{% url 'backend:order_detail' co.oid %}';">
+								<td> {{ co.cname }} </td>
+								<td> {{ co.oid }} </td>
+								<td> {{ co.odate }} </td>
+								{% if o.opaid == 0 %}
+									<td>No</td>
+								{% else %}
+									<td>Yes</td>
+								{% endif %}
+								<td> {{ co.ostatus }} </td>
+							</tr>	
+							{% endfor %}
+						</table>
+					</div>
+				</div>
+			{% else %}
+			    <p>No orders are available.</p>
+			{% endif %}
+		  </div>
+		  <div class="tab-pane fade" id="all" role="tabpanel" aria-labelledby="contact-tab">
+			{% if order %}
+				<div class="row">
+					<div class="col">
+						<table class="table table-striped table-hover">
+							<thead class="thead-dark">
+							<tr>
+								<th style="width:15%;">Customer</th>
+								<th style="width:25%;">OID</th>
+								<th style="width:30%;">Order Date</th>
+								<th style="width:10%;">Paid</th>
+								<th style="width:20%;">Status</th>
+							</tr>
+							</thead>
+							{% for o in order %}
+							<tr onclick="window.location='{% url 'backend:order_detail' o.oid %}';">
+								<td> {{ o.cname }} </td>
+								<td> {{ o.oid }} </td>
+								<td> {{ o.odate }} </td>
+								{% if o.opaid == 0 %}
+									<td>No</td>
+								{% else %}
+									<td>Yes</td>
+								{% endif %}
+								<td> {{ o.ostatus }} </td>
+							</tr>	
+							{% endfor %}
+						</table>
+					</div>
+				</div>
+			{% else %}
+			    <p>No orders are available.</p>
+			{% endif %}
 			</div>
+		  </div>
 		</div>
-	{% else %}
-	    <p>No items are available.</p>
-	{% endif %}
-	</div>
+
+
+
+
 
 {% endblock %}
