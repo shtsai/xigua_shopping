@@ -1,9 +1,11 @@
 {% extends 'backend/includes/header.html' %}
 
 {% block content %}
+	{% load backend_filters %}
 	<div class="container">
     	<h1>Product List</h1>		
 	</div>
+
 
 	<div class="container">
 
@@ -28,14 +30,32 @@
 							<tr>
 								<th style="width:40%;">Product</th>
 								<th style="width:30%;">Cost</th>
-								<th style="width:30%;">Price</th>
+								<th style="width:15%;">Price</th>
+								<th style="width:1%;"></th>
+								<th style="width:1%;"></th>
+								<th style="width:1%;"></th>
 							</tr>
 							</thead>
 							{% for fp in foodproduct %}
-							<tr onclick="window.location='{% url 'backend:product_detail' fp.pid %}';">
-								<td> {{ fp.pname }} </td>
+							<tr>
+								<td><a href='{% url 'backend:product_detail' fp.pid %}'> {{ fp.pname }} </a></td>
 								<td> {{ fp.pcost }} </td>
 								<td> {{ fp.pprice }} </td>
+								<td>
+									
+									<input class="btn btn-primary btn-sm" type="submit" value="-">
+								</td>
+
+								{% if cart|get_item:fp.pid %}
+								<td>{{ cart|get_item:fp.pid }} </td>
+								{% else %}
+								<td>0</td>
+								{% endif %}
+
+								<td>
+									<form action='{% url 'backend:addtocart' fp.pid %}'>
+									<input class="btn btn-primary btn-sm" type="submit" value="+">
+								</td>
 							</tr>	
 							{% endfor %}
 						</table>
