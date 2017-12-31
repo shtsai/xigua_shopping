@@ -42,10 +42,12 @@ def dictfetchall(cursor):
 
 
 def product(request):
-    product = Product.objects.all()
+    foodproduct = Product.objects.filter(ptype="Food")
+    healthproduct = Product.objects.filter(ptype="Health")
     template_name = 'backend/product.html'
     return render(request, template_name, {
-        'product': product,
+        'foodproduct': foodproduct,
+        'healthproduct': healthproduct,
     })
 
 def productdetail(request, product_id):
