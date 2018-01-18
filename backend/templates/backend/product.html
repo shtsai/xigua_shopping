@@ -28,9 +28,12 @@
 						<table class="table table-striped table-hover">
 							<thead class="thead-dark">
 							<tr>
-								<th style="width:40%;">Product</th>
-								<th style="width:30%;">Cost</th>
+								<th style="width:20%;">Product</th>
+								<th style="width:15%">Cost</th>
 								<th style="width:15%;">Price</th>
+								<th style="width:15%;">Stock In</th>
+								<th style="width:15%;">Stock Out</th>
+								<th style="width:15%;">Stock On Hand</th>
 								<th style="width:1%;"></th>
 								<th style="width:1%;"></th>
 								<th style="width:1%;"></th>
@@ -41,6 +44,9 @@
 								<td><a href='{% url 'backend:product_detail' fp.pid %}'> {{ fp.pname }} </a></td>
 								<td> {{ fp.pcost }} </td>
 								<td> {{ fp.pprice }} </td>
+								<td> {{ fp.sin }} </td>
+								<td> {{ fp.sout }} </td>
+								<td> {{ fp.soh }} </td>
 								<td>
 									
 									<input class="btn btn-primary btn-sm" type="submit" value="-">
