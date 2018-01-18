@@ -9,7 +9,7 @@ class Customer(models.Model):
     caddr = models.CharField('Address', max_length=100, null=True)
     cphone = models.CharField('Phone', max_length=15, null=True)
     cwechat = models.CharField('Wechat', max_length=20, null=True)
-    cdate = models.DateTimeField('Date Created')
+    cdate = models.DateTimeField('Date Created', null=True)
     cnote = models.CharField('Note', max_length=100, null=True)
 
     def __str__(self):
