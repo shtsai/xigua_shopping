@@ -36,6 +36,7 @@ class Product(models.Model):
     ptype = models.CharField('Product Type', max_length=20, null=True)
     pcost = models.DecimalField('Product Cost', max_digits=10, decimal_places=2, null=True)
     pprice = models.DecimalField('Product Price', max_digits=10, decimal_places=2, null=True)
+    pweight = models.DecimalField('Weight', max_digits=10, decimal_places=2, null=True)
     pstatus = models.CharField('Status', max_length=15, null=True)
     pnote = models.CharField('Note', max_length=100, null=True)
 
