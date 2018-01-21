@@ -28,7 +28,7 @@ class Order(models.Model):
     onote = models.CharField('Note', max_length=100, null=True)
 
     def __str__(self):
-        return self.oid
+        return str(self.oid)
 
     @classmethod
     def create(cls):

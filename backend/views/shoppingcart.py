@@ -8,19 +8,16 @@ from .util import *
 
 def newshoppingcart(request):
 	order = createNewOrder()
-	print(order.oid)
 	return redirect("/shoppingcart/" + str(order.oid))
 
 def shoppingcart(request, order_id):
-
-    foodproduct = get_food_products()
-    healthproduct = Product.objects.filter(ptype="Health")
     template_name = 'backend/shoppingcart.html'
     
     return render(request, template_name, {
-    	'oid': order_id,
-        'foodproduct': foodproduct,
-        'healthproduct': healthproduct,
+    	'order': get_object_or_404(Order, pk=order_id),
+    	'items': get_order_items(order_id),
+        'foodproduct': get_food_products(),
+        'healthproduct': Product.objects.filter(ptype="Health"),
     })
 
 def createNewOrder():
@@ -45,6 +42,17 @@ def get_food_products():
                        ''')
         res = dictfetchall(cursor)
         return convertNullToZero(res)
+
+def get_order_items(order_id):
+    with connection.cursor() as cursor:
+        cursor.execute('''
+                        SELECT *
+                        FROM backend_order AS O JOIN backend_ordercontains AS OC ON O.oid = OC.oid_id JOIN backend_product AS P ON P.pid = OC.pid_id
+                        WHERE O.oid = %s
+                        ''', [order_id])
+        res = dictfetchall(cursor)
+        return res
+
 
 def convertNullToZero(dic):
     for row in dic:
