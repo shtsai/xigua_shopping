@@ -1,0 +1,69 @@
+{% extends 'backend/includes/header.html' %}
+
+{% block content %}
+	<div class="container">
+		<h1> Select Customer </h1>
+		<h4> OID: {{ oid }} </h4>
+	</div>
+
+	<div class="container">
+		<h3>New Customer</h3>
+		<form action='{% url 'backend:setcustomer' %}' method="post">
+		{% csrf_token %}
+			<input type="hidden" name="new" value="1">
+			<input type="hidden" name="oid" value={{ oid }}>
+			<div class="form-group">
+				<label for="inputName">Name</label>
+				<input type="text" name="name" class="form-control" placeholder="Insane Duane" required>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label for="inputWechat">Wechat</label>
+					<input type="text" name="wechat" class="form-control" placeholder="Wechat">
+				</div>
+				<div class="form-group col-md-6">
+					<label for="inputPhone">Phone</label>
+					<input type="text" name="phone" class="form-control" placeholder="Phone">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="inputAddress">Address</label>
+				<input type="text" name="address" class="form-control" placeholder="1234 Main St">
+			</div>
+			<div class="form-group">
+				<label for="inputNote">Note</label>
+				<input type="text" name="note" class="form-control" placeholder="Note">
+			</div>
+			<button type="submit" class="btn btn-primary">Select</button>
+		</form>
+		<hr>
+	</div>
+
+	<div class="container">
+		<h3>Existing Customer</h3>
+	{% if customers %}
+		<div class="row">
+			<div class="col">
+				<form action='{% url 'backend:setcustomer' %}' method="post">
+					{% csrf_token %}
+					<input type="hidden" name="oid" value={{ oid }}>
+					<select name="cid" size="15" style="width:300px;">
+					{% for customer in customers %}
+						<option value={{ customer.cid }}> {{ customer.cname }} </option>
+					{% endfor %}
+					</select>
+					<br>
+					<input class="btn btn-success" type="submit" value="Select">
+				</form>
+			</div>
+		</div>
+	{% else %}
+	    <p>No customers are available.</p>
+	{% endif %}
+	<br>
+	</div>
+
+
+{% endblock %}
+
+

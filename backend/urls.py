@@ -17,4 +17,6 @@ urlpatterns = [
     path('shoppingcart/<int:order_id>', views.shoppingcart, name='shoppingcart'),
     path('addtocart/', views.addtocart, name='addtocart'),
     path('removefromcart/', views.removefromcart, name='removefromcart'),
+    path('selectcustomer/', views.selectcustomer, name='selectcustomer'),
+    path('setcustomer/', views.setcustomer, name='setcustomer'),
 ]

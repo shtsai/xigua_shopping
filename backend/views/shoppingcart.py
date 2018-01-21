@@ -91,3 +91,30 @@ def removefromcart(request):
 
     return redirect("/shoppingcart/" + str(request.POST['oid']))
 
+def selectcustomer(request):
+    customer = Customer.objects.all();
+    template_name = 'backend/selectcustomer.html'
+    return render(request, template_name, {
+        'customers': customer,    
+        'oid': request.POST['oid'],
+    })
+
+def setcustomer(request):
+    if ('new' in request.POST):
+        customer = Customer.create(request.POST['name'])
+        if (request.POST['wechat'] != ""):
+            customer.cwechat = request.POST['wechat']
+        if (request.POST['phone'] != ""):
+            customer.cphone = request.POST['phone']
+        if (request.POST['address'] != ""):
+            customer.caddr = request.POST['address']
+        if (request.POST['note'] != ""):
+            customer.cnote = request.POST['note']
+        customer.save()
+    else:
+        customer = Customer.objects.filter(cid=request.POST['cid'])[0]
+    
+    order = Order.objects.filter(oid=request.POST['oid'])[0]
+    order.cid_id = customer
+    order.save()
+    return redirect("/order/" + str(request.POST['oid']))

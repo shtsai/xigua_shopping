@@ -65,7 +65,11 @@
 	    <p>No items in the shopping cart.</p>
 	{% endif %}
 
-	<a href="#" class="btn btn-warning" role="button">Checkout</a>
+	<form action='{% url 'backend:selectcustomer' %}' method="post">
+		{% csrf_token %}
+		<input type="hidden" name="oid" value={{ order.oid }} >
+		<input type="submit" class="btn btn-warning" value="Checkout">
+	</form>
 
 		
 	<hr>

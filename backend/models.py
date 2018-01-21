@@ -14,6 +14,11 @@ class Customer(models.Model):
 
     def __str__(self):
         return self.cname
+    @classmethod
+    def create(cls, name):
+        customer = cls(cname=name, cdate=timezone.now())
+        customer.save()
+        return customer
 
 class Order(models.Model):
     oid = models.AutoField(primary_key=True)
