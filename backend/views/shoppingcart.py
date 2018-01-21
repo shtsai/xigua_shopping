@@ -7,22 +7,22 @@ from backend.models import Customer, Order, Product, Inventory, Ordercontains
 from .util import *
 
 def newshoppingcart(request):
-	order = createNewOrder()
-	return redirect("/shoppingcart/" + str(order.oid))
+    order = createNewOrder()
+    return redirect("/shoppingcart/" + str(order.oid))
 
 def shoppingcart(request, order_id):
     template_name = 'backend/shoppingcart.html'
     
     return render(request, template_name, {
-    	'order': get_object_or_404(Order, pk=order_id),
-    	'items': get_order_items(order_id),
+        'order': get_object_or_404(Order, pk=order_id),
+        'items': get_order_items(order_id),
         'foodproduct': get_food_products(),
         'healthproduct': Product.objects.filter(ptype="Health"),
     })
 
 def createNewOrder():
-	order = Order.create()
-	return order
+    order = Order.create()
+    return order
 
 def get_food_products():
     with connection.cursor() as cursor:
@@ -49,6 +49,7 @@ def get_order_items(order_id):
                         SELECT *
                         FROM backend_order AS O JOIN backend_ordercontains AS OC ON O.oid = OC.oid_id JOIN backend_product AS P ON P.pid = OC.pid_id
                         WHERE O.oid = %s
+                        ORDER BY P.pid
                         ''', [order_id])
         res = dictfetchall(cursor)
         return res
