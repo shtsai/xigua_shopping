@@ -80,4 +80,13 @@ def addtocart(request):
 
     return redirect("/shoppingcart/" + str(request.POST['oid']))
 
+def removefromcart(request):
+    order = Order.objects.filter(oid=request.POST['oid'])[0]
+    product = Product.objects.filter(pid=request.POST['pid'])[0]
+
+    exist = Ordercontains.objects.filter(oid=order, pid=product)
+    if exist:
+        exist.delete()
+
+    return redirect("/shoppingcart/" + str(request.POST['oid']))
 
