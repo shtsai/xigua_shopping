@@ -10,7 +10,9 @@
 			  <tbody>
 			    <tr>
 			      <td style="width:40%"">Customer</td>
-			      <td style="width:60%"">{{ customer.cname }}</td>
+			      <td style="width:60%"">
+					<a href='{% url 'backend:customer_detail' customer.cid %}'> {{ customer.cname }} </a>
+			      </td>
 			    </tr>
 			    <tr>
 			      <td>Order ID</td>
