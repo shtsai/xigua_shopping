@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.views import generic
 from django.db import connection
@@ -6,19 +6,26 @@ from django.contrib.auth.decorators import login_required
 from backend.models import Customer, Order, Product, Inventory
 from .util import *
 
+def newshoppingcart(request):
+	order = createNewOrder()
+	print(order.oid)
+	return redirect("/shoppingcart/" + str(order.oid))
 
-def shoppingcart(request):
+def shoppingcart(request, order_id):
+
     foodproduct = get_food_products()
     healthproduct = Product.objects.filter(ptype="Health")
     template_name = 'backend/shoppingcart.html'
-    if not ('cart' in request.session):
-        request.session['cart'] = {}
-    cart = request.session['cart']
+    
     return render(request, template_name, {
+    	'oid': order_id,
         'foodproduct': foodproduct,
         'healthproduct': healthproduct,
-        'cart': cart,
     })
+
+def createNewOrder():
+	order = Order.create()
+	return order
 
 def get_food_products():
     with connection.cursor() as cursor:

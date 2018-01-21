@@ -30,6 +30,14 @@ class Order(models.Model):
     def __str__(self):
         return self.oid
 
+    @classmethod
+    def create(cls):
+        tmpCustomer = Customer.objects.filter(cid=1)[0]
+        order = cls(cid=tmpCustomer, odate=timezone.now(), opaid=0, 
+                    ostatus="pending", onote="temporary order")
+        order.save()
+        return order
+
 class Product(models.Model):
     pid = models.AutoField(primary_key=True)
     pname = models.CharField('Product Name', max_length=40)
