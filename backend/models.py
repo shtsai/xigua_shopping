@@ -16,7 +16,7 @@ class Customer(models.Model):
         return self.cname
 
 class Order(models.Model):
-    oid = models.CharField(max_length=30, primary_key=True)
+    oid = models.AutoField(primary_key=True)
     cid = models.ForeignKey('Customer', on_delete=models.CASCADE)
     odate = models.DateTimeField('Date Ordered')
     oshipdate = models.DateTimeField('Date Shipped', null=True)
