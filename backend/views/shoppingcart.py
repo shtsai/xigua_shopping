@@ -70,5 +70,14 @@ def addtocart(request):
     product = Product.objects.filter(pid=request.POST['pid'])[0]
     quantity = request.POST['quantity']
     price = request.POST['price']
+
+    exist = Ordercontains.objects.filter(oid=order, pid=product)
+    # The same product has been included in this order
+    # Delete previous record to overwrite
+    if exist:
+        exist.delete()
     Ordercontains.create(order, product, quantity, price)
+
     return redirect("/shoppingcart/" + str(request.POST['oid']))
+
+

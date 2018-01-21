@@ -82,10 +82,10 @@
 									<input type="hidden" name="oid" value={{ order.oid }}>
 									<input type="hidden" name="pid" value={{ fp.pid }}>
 								<td>
-									<input type="number" name="price" min="0" style="width:80px;" value={{ fp.pprice }}>
+									<input type="number" name="price" min="0" step="0.01" style="width:80px;" value={{ fp.pprice }}>
 								</td>
 								<td>
-									<input type="number" name="quantity" min="0" value="1" style="width:80px;">
+									<input type="number" name="quantity" min="1" value="1" style="width:80px;">
 								
 									<input class="btn btn-primary btn-sm" type="submit" value="+">
 								</td>
