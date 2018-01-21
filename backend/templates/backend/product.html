@@ -52,16 +52,11 @@
 									<input class="btn btn-primary btn-sm" type="submit" value="-">
 								</td>
 
-								{% if cart|get_item:fp.pid %}
-								<td>{{ cart|get_item:fp.pid }} </td>
-								{% else %}
 								<td>0</td>
-								{% endif %}
 
 								<td>
-									<form action='{% url 'backend:addtocart' fp.pid %}'>
+									
 									<input class="btn btn-primary btn-sm" type="submit" value="+">
-									</form>
 								</td>
 							</tr>	
 							{% endfor %}

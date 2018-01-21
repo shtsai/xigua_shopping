@@ -61,7 +61,11 @@ class Ordercontains(models.Model):
         unique_together = (('oid', 'pid'))
     def __str__(self):
         return str(self.oid) + " " + str(self.pid)
-
+    @classmethod
+    def create(cls, order, product, quantity, price):
+        oc = cls(oid=order, pid=product, oquantity=quantity, oprice=price)
+        oc.save()
+        return oc
 
 class Inventory(models.Model):
     iid = models.AutoField(primary_key=True)

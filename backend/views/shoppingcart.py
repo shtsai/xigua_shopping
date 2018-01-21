@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.views import generic
 from django.db import connection
 from django.contrib.auth.decorators import login_required
-from backend.models import Customer, Order, Product, Inventory
+from backend.models import Customer, Order, Product, Inventory, Ordercontains
 from .util import *
 
 def newshoppingcart(request):
@@ -65,10 +65,10 @@ def convertNullToZero(dic):
     return dic
 
 
-def addtocart(request, product_id):
-    if not (str(product_id) in request.session):
-        request.session['cart'][str(product_id)] = 1
-    else:
-        request.session['cart'][str(product_id)] += 1
-    return product(request)
-
+def addtocart(request):
+    order = Order.objects.filter(oid=request.POST['oid'])[0]
+    product = Product.objects.filter(pid=request.POST['pid'])[0]
+    quantity = request.POST['quantity']
+    price = request.POST['price']
+    Ordercontains.create(order, product, quantity, price)
+    return redirect("/shoppingcart/" + str(request.POST['oid']))

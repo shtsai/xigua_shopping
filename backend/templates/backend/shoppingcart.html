@@ -64,8 +64,9 @@
 								<th style="width:30%;">Product</th>
 								<th style="width:15%">Cost</th>
 								<th style="width:15%;">Price</th>
-								<th style="width:15%;">Stock On Hand</th>
-								<th style="width:25%;">Quantity</th>
+								<th style="width:10%;">SOH</th>
+								<th style="width:15%;">Actual Price</th>
+								<th style="width:15%;">Quantity</th>
 
 							</tr>
 							</thead>
@@ -75,12 +76,20 @@
 								<td> {{ fp.pcost }} </td>
 								<td> {{ fp.pprice }} </td>
 								<td> {{ fp.soh }} </td>
-								<td> 
-									<form action='{% url 'backend:addtocart' fp.pid %}'>
-									<input type="number" name="quantity" min="0" style="width:80px;">
-									&nbsp
+								
+								<form action='{% url 'backend:addtocart' %}' method="post">
+									{% csrf_token %}
+									<input type="hidden" name="oid" value={{ order.oid }}>
+									<input type="hidden" name="pid" value={{ fp.pid }}>
+								<td>
+									<input type="number" name="price" min="0" style="width:80px;" value={{ fp.pprice }}>
+								</td>
+								<td>
+									<input type="number" name="quantity" min="0" value="1" style="width:80px;">
+								
 									<input class="btn btn-primary btn-sm" type="submit" value="+">
-									</form>
+								</td>
+								</form>
 								</td>
 							</tr>	
 							{% endfor %}

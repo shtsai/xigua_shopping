@@ -11,13 +11,9 @@ def product(request):
     foodproduct = get_food_products()
     healthproduct = Product.objects.filter(ptype="Health")
     template_name = 'backend/product.html'
-    if not ('cart' in request.session):
-        request.session['cart'] = {}
-    cart = request.session['cart']
     return render(request, template_name, {
         'foodproduct': foodproduct,
         'healthproduct': healthproduct,
-        'cart': cart,
     })
 
 def get_food_products():
