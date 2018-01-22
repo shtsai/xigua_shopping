@@ -68,7 +68,7 @@
 		<hr>
 	</div>
 
-	<div class="container collapse ml-4 mb-4" id="addPayment">
+	<div class="container collapse" id="addPayment">
 	<form action='{% url 'backend:addpayment' %}' method="post">
 		{% csrf_token %}
 		<input type="hidden" name="oid" value={{ order.oid }}>
@@ -93,7 +93,7 @@
 	<hr>
 	</div>
 	
-	<div class="container collapse ml-4 mb-4" id="addShipping">
+	<div class="container collapse" id="addShipping">
 	<form action='{% url 'backend:addshipping' %}' method="post">
 		{% csrf_token %}
 		<input type="hidden" name="oid" value={{ order.oid }}>
