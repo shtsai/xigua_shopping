@@ -59,7 +59,30 @@
 
 	<div class="container">
 		<a href="{% url 'backend:shoppingcart' order.oid %}" class="btn btn-success" role="button">Edit Shopping Cart</a>
+		<a href="#addPayment" data-toggle="collapse" class="btn btn-info">Add Payment</a>
+		<a href="{% url 'backend:shoppingcart' order.oid %}" class="btn btn-success" role="button">Add Shipping</a>
 		<hr>
+	</div>
+
+	<div class="container collapse ml-4 mb-4" id="addPayment">
+	<form action='{% url 'backend:addpayment' %}' method="post">
+		{% csrf_token %}
+		<input type="hidden" name="oid" value={{ order.oid }}>
+		<div class="form-group">
+			<label>Total</label>
+			<input type="number" class="form-control" name="total" step="0.01">
+		</div>
+		<div class="form-group">
+			<label>Payment Method</label>
+			<br>
+			<label class="radio-inline mr-2"><input type="radio" name="paymentmethod" value="venmo">Venmo</label>
+			<label class="radio-inline mr-2"><input type="radio" name="paymentmethod" value="paypal">Paypal</label>
+			<label class="radio-inline mr-2"><input type="radio" name="paymentmethod" value="cash">Cash</label>
+			<label class="radio-inline mr-2"><input type="radio" name="paymentmethod" value="other">Other</label>
+		</div>
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+	<hr>
 	</div>
 
 	<div class="container">

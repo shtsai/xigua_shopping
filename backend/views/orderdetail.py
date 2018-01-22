@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.views import generic
 from django.db import connection
@@ -27,3 +27,12 @@ def get_order_items(order_id):
                         ''', [order_id])
         res = dictfetchall(cursor)
         return res
+
+def addpayment(request):
+    order = Order.objects.filter(oid=request.POST['oid'])[0]
+    order.opaid = 1
+    order.ototal = request.POST['total']
+    order.opaymentmethod = request.POST['paymentmethod']
+    order.ostatus = "paid"
+    order.save()
+    return redirect("/order/" + str(request.POST['oid']))
