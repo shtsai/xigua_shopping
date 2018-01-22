@@ -36,6 +36,8 @@ def addpayment(request):
     order.ototal = request.POST['total']
     order.opaymentmethod = request.POST['paymentmethod']
     order.ostatus = "paid"
+    if (request.POST['note'] != ""):
+        order.onote = request.POST['note']
     order.save()
     return redirect("/order/" + str(request.POST['oid']))
 
