@@ -66,6 +66,10 @@
 	{% endif %}
 
 	<div class="container">
+	
+		<h5>Subtotal: {{ subtotal }}</h5>
+		
+		<br>
 		<div class="row">
 			<div class="col-1 mr-4">
 		<form action='{% url 'backend:selectcustomer' %}' method="post">

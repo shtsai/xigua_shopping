@@ -16,6 +16,7 @@ def shoppingcart(request, order_id):
     return render(request, template_name, {
         'order': get_object_or_404(Order, pk=order_id),
         'items': get_order_items(order_id),
+        'subtotal': get_subtotal(order_id),
         'foodproduct': get_food_products(),
         'healthproduct': Product.objects.filter(ptype="Health"),
     })
@@ -54,6 +55,18 @@ def get_order_items(order_id):
         res = dictfetchall(cursor)
         return res
 
+def get_subtotal(order_id):
+    with connection.cursor() as cursor:
+        cursor.execute('''
+                        SELECT SUM(oprice * oquantity) AS subtotal
+                        FROM backend_ordercontains
+                        WHERE oid_id = %s
+                        ''', [order_id])
+        res = dictfetchall(cursor)[0]['subtotal']
+        if (res == None):
+            return 0
+        else:
+            return str(res)
 
 def convertNullToZero(dic):
     for row in dic:
