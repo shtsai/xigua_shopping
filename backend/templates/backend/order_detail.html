@@ -50,6 +50,10 @@
 			      <td>Status</td>
 			      <td>{{ order.ostatus }}</td>
 			    </tr>	
+			    <tr>
+			      <td>Note</td>
+			      <td>{{ order.onote }}</td>
+			    </tr>	
 			  </tbody>
 			</table>
 		</div>
@@ -58,9 +62,9 @@
 	</div>
 
 	<div class="container">
-		<a href="{% url 'backend:shoppingcart' order.oid %}" class="btn btn-success" role="button">Edit Shopping Cart</a>
+		<a href="{% url 'backend:shoppingcart' order.oid %}" class="btn btn-warning" role="button">Edit Shopping Cart</a>
 		<a href="#addPayment" data-toggle="collapse" class="btn btn-info">Add Payment</a>
-		<a href="{% url 'backend:shoppingcart' order.oid %}" class="btn btn-success" role="button">Add Shipping</a>
+		<a href="#addShipping" data-toggle="collapse" class="btn btn-success" role="button">Add Shipping</a>
 		<hr>
 	</div>
 
@@ -79,6 +83,23 @@
 			<label class="radio-inline mr-2"><input type="radio" name="paymentmethod" value="paypal">Paypal</label>
 			<label class="radio-inline mr-2"><input type="radio" name="paymentmethod" value="cash">Cash</label>
 			<label class="radio-inline mr-2"><input type="radio" name="paymentmethod" value="other">Other</label>
+		</div>
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+	<hr>
+	</div>
+	
+	<div class="container collapse ml-4 mb-4" id="addShipping">
+	<form action='{% url 'backend:addshipping' %}' method="post">
+		{% csrf_token %}
+		<input type="hidden" name="oid" value={{ order.oid }}>
+		<div class="form-group">
+			<label>Shipping Fee</label>
+			<input type="number" class="form-control" name="shipping" step="0.01">
+		</div>
+		<div class="form-group">
+			<label>Note</label>
+			<input type="text" class="form-control" name="note">
 		</div>
 		<button type="submit" class="btn btn-primary">Submit</button>
 	</form>

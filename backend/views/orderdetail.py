@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from django.views import generic
 from django.db import connection
 from django.contrib.auth.decorators import login_required
+from django.utils import timezone
+
 from backend.models import Customer, Order, Product, Inventory
 from .util import *
 
@@ -36,3 +38,14 @@ def addpayment(request):
     order.ostatus = "paid"
     order.save()
     return redirect("/order/" + str(request.POST['oid']))
+
+def addshipping(request):
+    order = Order.objects.filter(oid=request.POST['oid'])[0]
+    order.oshipping = request.POST['shipping']
+    order.oshipdate = timezone.now()
+    order.ostatus = "shipped"
+    if (request.POST['note'] != ""):
+        order.onote = request.POST['note']
+    order.save()
+    return redirect("/order/" + str(request.POST['oid']))
+
