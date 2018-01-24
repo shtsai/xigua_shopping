@@ -25,3 +25,18 @@ def addcustomer(request):
         customer.cnote = request.POST['note'] 
     customer.save()
     return redirect("/customer/" + str(customer.cid))
+
+def updatecustomer(request):
+    customer = Customer.objects.filter(cid=request.POST['cid'])[0]
+    if (request.POST['name'] != ""):
+        customer.cname = request.POST['name']
+    if (request.POST['address'] != ""):
+        customer.caddr = request.POST['address']
+    if (request.POST['phone'] != ""):
+        customer.cphone = request.POST['phone'] 
+    if (request.POST['wechat'] != ""):
+        customer.cwechat = request.POST['wechat'] 
+    if (request.POST['note'] != ""):
+        customer.cnote = request.POST['note'] 
+    customer.save()
+    return redirect("/customer/" + str(customer.cid))

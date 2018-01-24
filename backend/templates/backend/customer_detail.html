@@ -39,6 +39,42 @@
 	  </div>
 	</div>
     
+	<div class="container">
+		<a href="#updateCustomer" data-toggle="collapse" class="btn btn-primary" role="button">Update Customer</a>
+		<hr>
+	</div>
+
+	<div class="container collapse ml-4 mb-4" id="updateCustomer">
+	<form action='{% url 'backend:updatecustomer' %}' method="post">
+		{% csrf_token %}
+		<input type="hidden" name="cid" value={{ customer.cid }}>
+		<div class="form-group">
+			<label>Name</label>
+			<input type="text" class="form-control" name="name" value={{ customer.cname }}>
+		</div>
+		<div class="form-group">
+			<label>Address</label>
+			<input type="text" class="form-control" name="address" value={{ customer.caddr }}>
+		</div>
+		<div class="form-row">
+		    <div class="form-group col-md-6">
+			<label>Phone</label>
+			<input type="text" class="form-control" name="phone" value={{ customer.cphone }}>
+		    </div>
+		    <div class="form-group col-md-6">
+			<label>Wechat</label>
+			<input type="text" class="form-control" name="wechat" value={{ customer.cwechat }}>
+		    </div>
+		</div>
+		<div class="form-group">
+			<label>Note</label>
+			<input type="text" class="form-control" name="note" value={{ customer.cnote }}>
+		</div>
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+	<hr>
+	</div>
+	
 
 	<div class="container">
 		<div class="row justify-content-start">
